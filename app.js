@@ -2,10 +2,18 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const http = require("http");
-
+const cors = require("cors");
+app.use(cors()); 
 const socketio = require("socket.io");
 const server = http.createServer(app);
-const io = socketio(server);
+
+const io = socketio(server, {
+    cors: {
+        origin: "*", // Change "*" to your frontend URL in production
+        methods: ["GET", "POST"]
+    }
+});
+
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname,"public")));
