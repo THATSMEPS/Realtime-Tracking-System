@@ -17,16 +17,13 @@ A **real-time location tracking web application** using **Node.js, Express, Sock
 
 ## 🛠️ Installation & Setup
 ### 1. Clone the Repository
-```sh
 git clone https://github.com/yourusername/realtime-tracker.git
 cd realtime-tracker
 
 ### 2. Install Dependencies
-```sh
 npm install
 
 ### 3. Start the Server
-```sh
 npm start
 
 ### 4. Open in Browser
