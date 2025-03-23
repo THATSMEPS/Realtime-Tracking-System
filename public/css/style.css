@@ -14,17 +14,41 @@ html, body {
 .container {
     display: flex;
     height: 100vh;
+    transition: margin-left 0.3s ease-in-out;
 }
 
 /* Sidebar Styles */
 .sidebar {
     width: 280px;
-    background: #2c3e50;
+    background: linear-gradient(45deg, #4b2e2e, #b4846c);
     color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar.collapsed {
+    transform: translateX(-250px);
+}
+.toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    transition: background 0.3s ease-in-out;
+}
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .sidebar h2 {
@@ -32,7 +56,6 @@ html, body {
     text-align: center;
     margin-bottom: 10px;
 }
-
 .user-list {
     flex: 1;
     overflow-y: auto;
@@ -42,14 +65,20 @@ html, body {
 
 .user {
     padding: 8px;
-    background: #34495e;
-    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
     margin-bottom: 5px;
+    transition: background 0.3s;
+}
+.user:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 #map {
     flex: 1;
     height: 100%;
+    margin-left: 280px; /* Default sidebar width */
+    transition: margin-left 0.3s ease-in-out;
 }
 
 /* Custom marker pop-up */

@@ -1,6 +1,9 @@
 const socket = io();
 const markers = {};
 const userList = document.getElementById("user-list");
+
+const userName = prompt("Enter your name:") || "Anonymous"; 
+socket.emit('set-username', userName);
 // Set up the map
 const map = L.map("map").setView([0, 0], 16);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -27,7 +30,7 @@ if (navigator.geolocation) {
     navigator.geolocation.watchPosition(
         (position) => {
             const { latitude, longitude } = position.coords;
-            socket.emit("send-location", { latitude, longitude });
+            socket.emit("send-location", { latitude, longitude, name: userName });
         },
         (error) => {
             console.error("Geolocation error:", error.code, error.message);
@@ -43,12 +46,12 @@ if (navigator.geolocation) {
 
 // Handle incoming locations from other users
 socket.on("receive-location", (data) => {
-    const { id, latitude, longitude } = data;
+    const { id, name, latitude, longitude } = data;
 
     if (markers[id]) {
         markers[id].setLatLng([latitude, longitude]); // Update marker position
     } else {
-        markers[id] = L.marker([latitude, longitude]).addTo(map); // Create marker
+        markers[id] = L.marker([latitude, longitude]).addTo(map).bindPopup(name); // Create marker
     }
 
     if (id === socket.id) {
@@ -69,12 +72,22 @@ socket.on("user-disconnected", (id) => {
 
 function updateUserList() {
     userList.innerHTML="";//clear old lists
-    Object.keys(markers).forEach((id) => {
+    Object.entries(markers).forEach(([id, marker]) => {
         if (id !== "self") {
             const userItem = document.createElement("div");
             userItem.classList.add("user")
-            userItem.textContent = `User ${id}`;
+            userItem.textContent = marker.getPopup().getContent();
             userList.appendChild(userItem);
         }
     });
 }
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleButton = document.getElementById("toggle-sidebar");
+    const sidebar = document.querySelector(".sidebar");
+    const map = document.getElementById("map");
+
+    toggleButton.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
+        map.classList.toggle("expanded");
+    });
+});

@@ -1,18 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
+<!DOCTYPE html> <!--DOCTYPE tells browser that this is a html type file-->
+<html lang="en"> <!--all the lines written in side <html></html> is part of code-->
+<!--lang="en" means that document is in english, helps search engine to detect that text is in english-->
+    <head> <!--provides instructions to the browser about how to display the page. -->
+        <meta charset="UTF-8"> <!--meta data, information about page : UTF-8 is like character encoding means supports alphanumeric data, symbols etc.--> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!---->
         <title>Real-Time Tracking App</title>
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/style.css"> <!--link connects any external files too html page ,
+         in this case it is styling file from css and "rel" means relationship with the link, here it tells that it is a stylesheet meaning css styling sheet,
+         href is the path of the file-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" 
             integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" 
             crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <!--here the link loads styling of leaflet maps from an online CDN (content delivery network), integrity has a hash code that prevents hackers,
+            crossorigin means we can load this from any server.-->>
     </head>
-    <body>
+    <body> <!--body  means what texts will be displayed on website-->>
         <div class="container">
             <!-- Sidebar for user list -->
-            <div class="sidebar">
+                <div class="sidebar">
+                <button class="toggle-btn" id="toggle-sidebar">☰</button>
                 <h2>Active Users</h2>
                 <div class="user-list" id="user-list">
                     <!-- Users will be dynamically added here -->
